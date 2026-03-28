@@ -1,0 +1,2 @@
+"""Vision detection module."""
+

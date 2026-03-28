@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DroneWatch Command Screen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <main class="screen-shell">
+      <section class="command-screen">
+        <header class="topbar panel-frame">
+          <div>
+            <p class="kicker">DroneWatch // Tactical Monitor</p>
+            <h1>Retro multi-scanner command screen</h1>
+          </div>
+          <div class="topbar-meta">
+            <div class="status-pill">
+              <span class="status-dot" id="health-indicator"></span>
+              <span id="health-text">Syncing</span>
+            </div>
+            <div class="status-pill">
+              <span>History</span>
+              <strong>{{ config.history_limit }}</strong>
+            </div>
+          </div>
+        </header>
+
+        <section class="toolbar panel-frame">
+          <div class="toolbar-group">
+            <label class="control">
+              <span>Event limit</span>
+              <select id="event-limit">
+                <option value="6">06</option>
+                <option value="10">10</option>
+                <option value="12" selected>12</option>
+                <option value="18">18</option>
+                <option value="24">24</option>
+              </select>
+            </label>
+
+            <label class="control">
+              <span>Severity gate</span>
+              <select id="severity-filter">
+                <option value="all" selected>All</option>
+                <option value="critical">Critical</option>
+                <option value="warning">Warning+</option>
+                <option value="info">Info+</option>
+              </select>
+            </label>
+
+            <label class="control">
+              <span>Scanner focus</span>
+              <select id="source-filter">
+                <option value="all" selected>All scanners</option>
+                <option value="rf">RF</option>
+                <option value="audio">Audio</option>
+                <option value="vision">Vision</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="toolbar-group compact">
+            <div class="toggle-line">
+              <span>Auto refresh</span>
+              <button id="refresh-toggle" class="toggle-button active" type="button">ON</button>
+            </div>
+            <button id="refresh-now" class="action-button" type="button">Ping now</button>
+          </div>
+        </section>
+
+        <section class="main-grid">
+          <article class="hero-radar panel-frame">
+            <div class="hero-copy">
+              <p class="kicker">Command overview</p>
+              <div class="hero-stats">
+                <div class="stat-block">
+                  <span class="stat-label">Events</span>
+                  <strong class="stat-value" id="events-recorded">000</strong>
+                </div>
+                <div class="stat-block">
+                  <span class="stat-label">Hot scanner</span>
+                  <strong class="stat-value" id="primary-scanner">---</strong>
+                </div>
+                <div class="stat-block">
+                  <span class="stat-label">Threat</span>
+                  <strong class="stat-value" id="threat-level">Nominal</strong>
+                </div>
+              </div>
+            </div>
+            <div class="radar-visual">
+              <div class="radar-scope">
+                <div class="radar-ring ring-a"></div>
+                <div class="radar-ring ring-b"></div>
+                <div class="radar-ring ring-c"></div>
+                <div class="radar-sweep"></div>
+                <div class="radar-blip" id="radar-blip"></div>
+                <div class="radar-center"></div>
+              </div>
+              <div class="radar-caption" id="latest-summary">Awaiting scanner telemetry</div>
+            </div>
+          </article>
+
+          <article class="latest-panel panel-frame">
+            <div class="section-head">
+              <h2>Priority contact</h2>
+              <span class="chip chip-alert">Live</span>
+            </div>
+            <div id="latest-event" class="latest-event empty">Waiting for detections...</div>
+          </article>
+
+          <section class="scanners panel-frame">
+            <div class="section-head">
+              <h2>Scanner bank</h2>
+              <span class="chip">RF / Audio / Vision</span>
+            </div>
+            <div id="module-status" class="scanner-grid"></div>
+          </section>
+
+          <section class="feed panel-frame">
+            <div class="section-head">
+              <h2>Signal feed</h2>
+              <span class="chip" id="feed-count">0 entries</span>
+            </div>
+            <div id="event-list" class="event-list"></div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+  </html>
