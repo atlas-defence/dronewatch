@@ -2,6 +2,14 @@
 
 Open-source drone detection and tracking system using RF, audio, and visual signals.
 
+- **Languages**: English (this page) · [Türkçe](README.tr.md)
+
+---
+
+## Screenshot
+
+![DroneWatch dashboard screenshot](screenshot.png)
+
 ---
 
 ## Overview
